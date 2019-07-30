@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from 'react';
+import Axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+  componentDidMount=()=>{
+    Axios.get('http://localhost:2017')
+    .then((res)=>{
+      console.log('masuk then')
+      console.log(res.data)
+    })
+    .catch((err)=>{
+      console.log('terjadi error')
+    })
+  }
+
+  onBtnAddClick=()=>{
+    Axios.post('http://localhost:2017/addproduct', {
+      id:4,
+      nama: 'React js',
+      description: 'react js'
+    })
+    .then((res)=>{
+      console.log(res.data)
+    })
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>Selamat datang disini</h1>
+        <input type='button' value='Add product' onClick={this.onBtnAddClick}/>
+      </div>
+    )
+  }
 }
 
 export default App;
